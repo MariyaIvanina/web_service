@@ -2,7 +2,7 @@
 
 ### Краткое описание 
 
-Я буду рассматривать REST API сервис на примере ETH кошельков пользователей. Один юзер имеет один кошелек, поэтому будет иметь user_id и eth_amount. Тогда будут запросы: получить информацию о пользователе, изменить количество криптовалюты у юзера, удалить кошелек юзера, добавить новый кошелек для юзера и получить все кошельки юзеров.
+Я буду рассматривать почти REST API сервис на примере ETH кошельков пользователей. Один юзер имеет один кошелек, поэтому будет иметь user_id и eth_amount. Тогда будут запросы: получить информацию о пользователе, изменить количество криптовалюты у юзера, удалить кошелек юзера, добавить новый кошелек для юзера и получить все кошельки юзеров.
 
 ### Представление данных
 
@@ -22,8 +22,8 @@
     "eth_amount": 0.451
   }
   "actions" : [
-        {"rel": "add_wallet", "template": "/user_wallets", "method": "POST", "required_data":["user_id", "eth_amount"]},
-        {"rel": "edit_wallet", "template": "/user_wallet/{user_id}", "method": "POST", "required_data":["eth_amount"]},
+        {"rel": "add_wallet", "template": "/user_wallets", "method": "POST", "required_data":["eth_amount"]},
+        {"rel": "edit_wallet", "template": "/user_wallet/{user_id}", "method": "PUT", "required_data":["eth_amount"]},
         {"rel": "get_wallet", "template": "/user_wallet/{user_id}", "method": "GET", "required_data":[]},
         {"rel": "delete_wallet", "template": "/user_wallet/{user_id}", "method": "DELETE", "required_data":[]},
         {"rel": "get_all_wallets", "template": "/user_wallets", "method": "GET", "required_data":[]},
@@ -36,10 +36,10 @@
 | Query type | URI | Description |
 | ------ | ------ | ------ |
 | GET| /eth_webservice_queries | Получить все темплейты для запросов к веб-сервису|
-|  POST | /user_wallet/<user_id> | Изменить количество криптовалюты |
+|  PUT | /user_wallet/<user_id> | Изменить количество криптовалюты |
 |  GET | /user_wallet/<user_id> | Получить информацию о количестве криптовалюты в кошельке |
 |  DELETE | /user_wallet/<user_id> | Удалить криптовалюту |
-|  POST | /user_wallets | Добавить новую криптовалюту. Ожидается, что будут переданы поля user_id и eth_amount |
+|  POST | /user_wallets | Добавить новую криптовалюту. Ожидается, что будут передан eth_amount |
 | GET | /user_wallets | Получить информацию о всех юзерах |
 
 # Описание API и каждого возможного запроса отдельно 
@@ -51,8 +51,8 @@
     "serviceDescription": {
       "base" : "/eth_webservice_queries" 
        "actions" : [
-        {"rel": "add_wallet", "template": "/user_wallets", "method": "POST", "required_data":["user_id", "eth_amount"]},
-        {"rel": "edit_wallet", "template": "/user_wallet/{user_id}", "method": "POST", "required_data":["eth_amount"]},
+        {"rel": "add_wallet", "template": "/user_wallets", "method": "POST", "required_data":["eth_amount"]},
+        {"rel": "edit_wallet", "template": "/user_wallet/{user_id}", "method": "PUT", "required_data":["eth_amount"]},
         {"rel": "get_wallet", "template": "/user_wallet/{user_id}", "method": "GET", "required_data":[]},
         {"rel": "delete_wallet", "template": "/user_wallet/{user_id}", "method": "DELETE", "required_data":[]},
         {"rel": "get_all_wallets", "template": "/user_wallets", "method": "GET", "required_data":[]},
@@ -69,8 +69,8 @@
         "eth_amount": 0.451
     }
     "actions" : [
-        {"rel": "add_wallet", "template": "/user_wallets", "method": "POST", "required_data":["user_id", "eth_amount"]},
-        {"rel": "edit_wallet", "template": "/user_wallet/{user_id}", "method": "POST", "required_data":["eth_amount"]},
+        {"rel": "add_wallet", "template": "/user_wallets", "method": "POST", "required_data":["eth_amount"]},
+        {"rel": "edit_wallet", "template": "/user_wallet/{user_id}", "method": "PUT", "required_data":["eth_amount"]},
         {"rel": "get_wallet", "template": "/user_wallet/{user_id}", "method": "GET", "required_data":[]},
         {"rel": "delete_wallet", "template": "/user_wallet/{user_id}", "method": "DELETE", "required_data":[]},
         {"rel": "get_all_wallets", "template": "/user_wallets", "method": "GET", "required_data":[]},
@@ -100,7 +100,7 @@
 |  Bad request | 400 | Введен некорректный запрос |
 |  Not found | 404 | Нет кошелька, у которого заданный user ID, ничего не будет удалено |
 
-#### 1.c) Изменить количество криптовалюты в кошельке юзера (POST)
+#### 1.c) Изменить количество криптовалюты в кошельке юзера (PUT)
 
 Если кошелек с таким user ID существует и корректно задано поле нового количества (eth_amount), то количество криптовалюты в кошельке с заданным ID будет изменено. Если некорректно заданы параметры или кошелька с таким user ID не существует, будут возвращены соответствующие ошибки. 
 
@@ -114,7 +114,7 @@
 
 | Value | Code | Description |
 | ------ | ------ | ------ |
-|  OK | 200 | Корректный запрос, у криптовалюты с заданным ID было изменено поле отвечающее за количество, будет возвращен JSON криптовалюты с измененным количеством|
+|  OK | 200 | Корректный запрос, у кошелька с заданным ID было изменено поле отвечающее за количество, будет возвращен JSON кошелька с измененным количеством|
 |  Bad request | 400 | Некорректный запрос или список передаваемых параметров |
 |  Not found | 404 | Нет кошелька, у которого заданный user ID |
 
@@ -141,7 +141,7 @@
 
 #### 2.b) Добавить новый кошелек (POST)
 
-В результате запроса в базу будет добавлен новую кошелек, всю информацию про которому нужно передать в JSON. Если поля user_id или eth_amount не будет задано или они заданы некорректно, то новая криптовалюта не будет добавлена.
+В результате запроса в базу будет добавлен новую кошелек, всю информацию про которому нужно передать в JSON. Если поле eth_amount не будет задано или задано некорректно, то новый кошелек не будет добавлена.
 
 Если запрос удалось выполнить, возвращается JSON, который будет описывать новую криптовалюту в кошельке. 
 
