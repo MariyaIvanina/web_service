@@ -1,4 +1,4 @@
-Я использовала фреймворк The C++ REST SDK(https://github.com/Microsoft/cpprestsdk) и на его основе буду делать свое API.
+Я использовала фреймворк The C++ REST SDK(https://github.com/Microsoft/cpprestsdk) и на основе одного из примеров(https://github.com/Meenapintu/Restweb) буду делать свое API.
 
 Загружала на Ubuntu 16 с помощью sudo apt-get install libcpprest-dev
 Далее для запуска сервиса нужно выполнить следующие команды:
