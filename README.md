@@ -127,11 +127,9 @@
 {
     "user_wallets": [
         "user_wallet": {
-          "user_id": 12,
           "eth_amount": 0.451
         },
         "user_wallet": {
-          "user_id": 13,
           "eth_amount": 1.34
         },
         ...
