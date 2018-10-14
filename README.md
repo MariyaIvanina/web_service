@@ -130,9 +130,11 @@
 {
     "user_wallets": [
         "user_wallet": {
+          "user_name": "user_1",
           "eth_amount": 0.451
         },
         "user_wallet": {
+          "user_name": "user_2",
           "eth_amount": 1.34
         },
         ...
