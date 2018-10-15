@@ -22,14 +22,8 @@
     "user_id": 12,
     "user_name": "user_1"
     "eth_amount": 0.451
-  }
-  "actions" : [
-        {"rel": "add_wallet", "template": "/user_wallets", "method": "POST", "required_data":["eth_amount"]},
-        {"rel": "edit_wallet", "template": "/user_wallet/{user_id}", "method": "PUT", "required_data":["eth_amount"]},
-        {"rel": "get_wallet", "template": "/user_wallet/{user_id}", "method": "GET", "required_data":[]},
-        {"rel": "delete_wallet", "template": "/user_wallet/{user_id}", "method": "DELETE", "required_data":[]},
-        {"rel": "get_all_wallets", "template": "/user_wallets", "method": "GET", "required_data":[]},
-  ]
+  },
+  "self" : {"link": "/user_wallet/{user_id}"}
 }
 ```
 
@@ -42,7 +36,6 @@
 |  GET | /user_wallet/<user_id> | Получить информацию о количестве криптовалюты в кошельке |
 |  DELETE | /user_wallet/<user_id> | Удалить криптовалюту |
 |  POST | /user_wallets | Добавить новый кошелек. Ожидается, что будут передан eth_amount и user_name |
-| GET | /user_wallets | Получить информацию о всех юзерах |
 
 # Описание API и каждого возможного запроса отдельно 
 
@@ -56,8 +49,7 @@
         {"rel": "add_wallet", "template": "/user_wallets", "method": "POST", "required_data":["eth_amount", "user_name"]},
         {"rel": "edit_wallet", "template": "/user_wallet/{user_id}", "method": "PUT", "required_data":["eth_amount"]},
         {"rel": "get_wallet", "template": "/user_wallet/{user_id}", "method": "GET", "required_data":[]},
-        {"rel": "delete_wallet", "template": "/user_wallet/{user_id}", "method": "DELETE", "required_data":[]},
-        {"rel": "get_all_wallets", "template": "/user_wallets", "method": "GET", "required_data":[]},
+        {"rel": "delete_wallet", "template": "/user_wallet/{user_id}", "method": "DELETE", "required_data":[]}
        ]
     }
 }
@@ -70,14 +62,8 @@
         "user_id": 12,
         "user_name": "user_1",
         "eth_amount": 0.451
-    }
-    "actions" : [
-        {"rel": "add_wallet", "template": "/user_wallets", "method": "POST", "required_data":["eth_amount", "user_name"]},
-        {"rel": "edit_wallet", "template": "/user_wallet/{user_id}", "method": "PUT", "required_data":["eth_amount"]},
-        {"rel": "get_wallet", "template": "/user_wallet/{user_id}", "method": "GET", "required_data":[]},
-        {"rel": "delete_wallet", "template": "/user_wallet/{user_id}", "method": "DELETE", "required_data":[]},
-        {"rel": "get_all_wallets", "template": "/user_wallets", "method": "GET", "required_data":[]},
-    ]
+    },
+    "self" : {"link": "/user_wallet/{user_id}"}
 }
 ```
 
@@ -123,26 +109,7 @@
 
 ### 2. /user_wallets запросы
 
-#### 2.a) Получить информацию о всех кошельках (GET)
-
-Результатом будет являться информация о всех криптовалютах в формате JSON.
-```json
-{
-    "user_wallets": [
-        "user_wallet": {
-          "user_name": "user_1",
-          "eth_amount": 0.451
-        },
-        "user_wallet": {
-          "user_name": "user_2",
-          "eth_amount": 1.34
-        },
-        ...
-    ]
-}
-```
-
-#### 2.b) Добавить новый кошелек (POST)
+#### Добавить новый кошелек (POST)
 
 В результате запроса в базу будет добавлен новую кошелек, всю информацию про которому нужно передать в JSON. Если поля eth_amount и user_name не будут заданы или заданы некорректно, то новый кошелек не будет добавлен.
 
