@@ -31,7 +31,6 @@
 
 | Query type | URI | Description |
 | ------ | ------ | ------ |
-| GET| /eth_webservice_queries | Получить все темплейты для запросов к веб-сервису|
 |  PUT | /user_wallet/<user_id> | Изменить количество криптовалюты |
 |  GET | /user_wallet/<user_id> | Получить информацию о количестве криптовалюты в кошельке |
 |  DELETE | /user_wallet/<user_id> | Удалить криптовалюту |
@@ -39,23 +38,7 @@
 
 # Описание API и каждого возможного запроса отдельно 
 
-## 0. /eth_webservice_queries (GET) - это будет стандартный URI
-По этому URI можно обратиться к сервису, чтобы получить список возможных запросов, например ответ по запросу будет выглядеть так:
-```json
-{
-    "serviceDescription": {
-      "base" : "/eth_webservice_queries" 
-       "actions" : [
-        {"rel": "add_wallet", "template": "/user_wallets", "method": "POST", "required_data":["eth_amount", "user_name"]},
-        {"rel": "edit_wallet", "template": "/user_wallet/{user_id}", "method": "PUT", "required_data":["eth_amount"]},
-        {"rel": "get_wallet", "template": "/user_wallet/{user_id}", "method": "GET", "required_data":[]},
-        {"rel": "delete_wallet", "template": "/user_wallet/{user_id}", "method": "DELETE", "required_data":[]}
-       ]
-    }
-}
-```
-Ко всем ответам по запросу кроме возвращаемого значения, также будут передавать actions,которые можно сделать с кошельком
-
+Ко всем ответам по запросу кроме возвращаемого значения, также будут передаваться линк с user_id
 ```json
 {
     "user_wallet": { 
