@@ -1,59 +1,22 @@
-# Restweb
-Sample code of cpprestsdk (casablanca)
-
-
-This repo contains a sample of cpprestsdk server side in very simple format.
-sample handles 4 method of http request [put, get,post and delete].
-almost every function/class name is a self documentation  of it's functionality.
-
-project structure 
+Структура сервиса
 
 [main.cpp]
 [include/handler.h]
+[include/database_header.h]
 [src/hander.cpp]
+[src/database_impl.cpp]
 
 
-How to compile :
-
+Компилировать:
 cmake .
-
 make
 
 run server 
 ./Build/bin/restserver
 
-[
-For mac, mac branch is recommanded.
-]
+Реализованы функции GET,POST.PUT,DELETE /user_wallet
 
-[
-
-For Windows (Visual studio solution) (checkout vs15_v140 branch )
-
-]
-##############################################
-
-{#dbms folder is a independent project right now to access database before enable to install some prerequsites}
-1)
- install postgresql;
- install pqxx  (sudo apt-get install libpqxx-dev)
- and libpq  if it is not installed with postgresql  ((sudo apt-get install libpq-dev)
- 
-dbms support can be added ( right now  Postgresql only) by doing following steps 
-1) uncomment  line 5 of handler.h 
-
->//#include "../dbms/include/Dbms.h"
-
-2) for testing uncomment line 43 and 44 of handler.cpp
->	//Dbms* d  = new Dbms();
->   //d->connect();
- 
-How to complie :
-
-cmake . -DDBMS=ON
-make
-
-run server 
-./Build/bin/restserver
- 
-now all done . just implement/replace own logic.
+Тестирование
+GET запросы с помощью yandex-tank. (get_test.yaml)
+https://overload.yandex.net/129586 протестировала при возрастании нагрузки от 100 до 2000 юзеров. Как видно из графиков, после 900 rps мы уже уперлись в 100% CPU. Ну и дальше уже идет разлад системы, ошибки, таймауты.
+Подтвердим, что мы можем работать с 800 юзеров. https://overload.yandex.net/129592 здесь наблюдается работа CPU 98%,так что я взяла еще чуток с запасом. Также не было ошибок и таймаутов.
