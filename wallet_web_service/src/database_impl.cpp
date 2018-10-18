@@ -46,7 +46,7 @@ std::string  addUser(mongocxx::collection collection, std::string user_name, flo
   bsoncxx::builder::stream::document document{};
   document << "user_name" << user_name;
   document << "eth_amount" << eth_amount;
-  auto  result = collection.insert_one(document.view());
+  auto  result = collection.insert_one(std::move(document.view()));
   return result->inserted_id().get_oid().value.to_string();
 }
 
@@ -73,7 +73,7 @@ std::string getUser(mongocxx::collection collection, std::string user_id){
 }
 
 bsoncxx::stdx::optional<mongocxx::result::update> updateUser(mongocxx::collection collection, std::string user_id, float new_amount){
-  return collection.update_one(document{} << "_id" << bsoncxx::oid(user_id) << finalize, document{} << "$set" << open_document << "eth_amount" << new_amount << close_document << finalize);
+  return collection.update_one(document{} << "_id" << bsoncxx::oid(user_id) << finalize, std::move(document{} << "$set" << open_document << "eth_amount" << new_amount << close_document << finalize));
 }
 
 void deleteUser(mongocxx::collection collection, std::string user_id){
