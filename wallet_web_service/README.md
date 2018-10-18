@@ -23,8 +23,11 @@ generate_get.py generate_put.py генерят запросы для тесто�
 Проверить запросы можно с помощью следующих запросов
 
 curl -XPOST localhost:34568/user_wallet/ -H "Content-type: application/json" -d '{"user_name": "user_1", "eth_amount": 1.5}'
+
 curl -XGET localhost:34568/user_wallet/5bc3a024e8ec40577e256f35 -H "Content-type: application/json"
+
 curl -XDELETE localhost:34568/user_wallet/5bc3a024e8ec40577e256f35 -H "Content-type: application/json"
+
 curl -XPUT localhost:34568/user_wallet/5bc3a024e8ec40577e256f35 -H "Content-type: application/json" -d '{"eth_amount": 2.5}'
 
 
