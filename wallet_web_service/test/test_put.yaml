@@ -1,0 +1,14 @@
+overload:
+  enabled: true
+  package: yandextank.plugins.DataUploader
+  token_file: "token.txt"
+phantom:
+  address: localhost:34568
+  ssl: false
+  headers: ["Connection: close"]
+  load_profile:
+    load_type: rps
+    schedule: line(100,300, 1m) const(300, 10m)
+  ammofile: test_put.txt
+telegraf:
+  enabled: yes
