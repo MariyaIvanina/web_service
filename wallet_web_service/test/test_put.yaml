@@ -8,7 +8,7 @@ phantom:
   headers: ["Connection: close"]
   load_profile:
     load_type: rps
-    schedule: line(100,300, 1m) const(300, 10m)
+    schedule: line(10,150, 1m) const(150, 10m)
   ammofile: test_put.txt
 telegraf:
   enabled: yes
