@@ -16,7 +16,7 @@ run server
 
 test
 
-generate_get.py generate_put.py генерят запросы для тестов 
+generate_get.py generate_put.py generate_mixed.py генерят запросы для тестов 
 
 Реализованы функции GET,POST.PUT,DELETE /user_wallet
 
